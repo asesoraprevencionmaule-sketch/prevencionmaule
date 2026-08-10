@@ -144,6 +144,16 @@
     position:absolute;top:-16px;right:22px;background:var(--coral);color:#fff;
     font-family:var(--font-mono);font-size:11px;padding:8px 14px;border-radius:100px;box-shadow:var(--shadow-sm);
   }
+  .hero-photo{
+    position:absolute;left:-38px;bottom:-30px;width:150px;
+    background:#fff;padding:8px 8px 30px;border-radius:12px;box-shadow:var(--shadow);
+    transform:rotate(-7deg);z-index:2;
+  }
+  .hero-photo img{width:100%;height:110px;object-fit:cover;border-radius:6px;}
+  .hero-photo span{
+    position:absolute;bottom:8px;left:8px;right:8px;font-family:var(--font-mono);
+    font-size:9.5px;color:var(--ink-muted);text-align:center;
+  }
 
   section{padding:96px 0;}
   .section-head{max-width:600px;margin-bottom:48px;}
@@ -179,6 +189,10 @@
   .card p{color:var(--ink-muted);font-size:14px;}
   .tint-mint{background:var(--mint-tint);color:var(--primary);}
   .tint-coral{background:var(--coral-tint);color:var(--coral);}
+  .card.wide.photo-card{display:flex;padding:0;overflow:hidden;}
+  .card.wide.photo-card .content{padding:26px;flex:1;min-width:0;}
+  .card.wide.photo-card .photo{width:38%;flex-shrink:0;position:relative;}
+  .card.wide.photo-card .photo img{width:100%;height:100%;object-fit:cover;display:block;}
 
   /* PROCESO */
   .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;}
@@ -197,12 +211,12 @@
   /* EQUIPO */
   .team{background:var(--surface);}
   .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-  .team-card{background:var(--bg);border-radius:var(--radius-md);padding:28px 24px;text-align:center;border:1px solid var(--line);}
-  .avatar{
-    width:64px;height:64px;border-radius:50%;margin:0 auto 18px;
-    display:flex;align-items:center;justify-content:center;
+  .team-card{background:var(--bg);border-radius:var(--radius-md);padding:24px 22px 26px;text-align:center;border:1px solid var(--line);}
+  .illus{
+    width:100%;height:180px;border-radius:14px;margin-bottom:20px;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
   }
-  .avatar svg{width:28px;height:28px;}
+  .illus svg{width:150px;height:170px;}
   .team-card h3{font-family:var(--font-display);font-size:16.5px;font-weight:600;margin-bottom:6px;}
   .team-card p{color:var(--ink-muted);font-size:13.5px;}
   .team-note{margin-top:32px;font-family:var(--font-mono);font-size:12px;color:var(--ink-muted);text-align:center;}
@@ -278,6 +292,9 @@
     .quote-grid{grid-template-columns:1fr;}
     .contact{margin:0 16px;padding:40px 24px;}
     .contact-grid{grid-template-columns:1fr;gap:32px;}
+    .card.wide.photo-card{flex-direction:column;}
+    .card.wide.photo-card .photo{width:100%;height:160px;}
+    .hero-photo{display:none;}
   }
 </style>
 </head>
@@ -348,6 +365,10 @@
 
     <div class="dash">
       <span class="float-badge">Panel de cliente</span>
+      <div class="hero-photo">
+        <img src="img/equipo-ilustracion.jpg" alt="Prevencionista en terreno">
+        <span>En terreno</span>
+      </div>
       <div class="dash-head">
         <span class="t">Estado de cumplimiento SST</span>
         <span class="live"><span class="dot"></span>Al día</span>
@@ -421,11 +442,16 @@
         <p>Constitución y acompañamiento continuo.</p>
       </div>
 
-      <div class="card wide">
-        <div class="icon-badge tint-mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5 4 8.5 9 9 5-.5 9-4 9-9V7l-9-5Z"/><path d="m9 12 2 2 4-4"/></svg></div>
-        <span class="code">DS 40 · CAPACITACIÓN</span>
-        <h3>Charlas y formación</h3>
-        <p>Programas de capacitación en seguridad ocupacional, uso de EPP y procedimientos de trabajo seguro para cuadrillas y equipos de terreno.</p>
+      <div class="card wide photo-card">
+        <div class="content">
+          <div class="icon-badge tint-mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5 4 8.5 9 9 5-.5 9-4 9-9V7l-9-5Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <span class="code">DS 40 · CAPACITACIÓN</span>
+          <h3>Charlas y formación</h3>
+          <p>Programas de capacitación en seguridad ocupacional, uso de EPP y procedimientos de trabajo seguro para cuadrillas y equipos de terreno.</p>
+        </div>
+        <div class="photo">
+          <img src="img/equipo-epp.jpg" alt="Equipo de protección personal: casco, antiparras, orejeras y guantes">
+        </div>
       </div>
 
       <div class="card">
@@ -488,22 +514,65 @@
     </div>
     <div class="team-grid">
       <div class="team-card">
-        <div class="avatar tint-mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 6-6"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <div class="illus" style="background:var(--mint-tint);">
+          <svg viewBox="0 0 200 200" role="img" aria-label="Ilustración de prevencionista realizando una inspección en terreno con tablero">
+            <ellipse cx="100" cy="182" rx="46" ry="8" fill="var(--primary)" opacity="0.08"/>
+            <rect x="82" y="140" width="15" height="42" rx="7" fill="var(--primary-2)"/>
+            <rect x="103" y="140" width="15" height="42" rx="7" fill="var(--primary-2)"/>
+            <path d="M70 92 h60 l-5 58 h-50 z" fill="var(--primary)"/>
+            <path d="M70 92 l30 20 30-20" fill="none" stroke="var(--mint)" stroke-width="5" stroke-linejoin="round"/>
+            <rect x="46" y="98" width="14" height="46" rx="7" fill="var(--primary)" transform="rotate(14 53 98)"/>
+            <rect x="138" y="98" width="14" height="40" rx="7" fill="var(--primary)" transform="rotate(-22 145 98)"/>
+            <rect x="118" y="118" width="34" height="42" rx="3" fill="#fff" stroke="var(--primary-2)" stroke-width="2"/>
+            <line x1="125" y1="130" x2="145" y2="130" stroke="var(--primary-2)" stroke-width="2.5"/>
+            <line x1="125" y1="139" x2="145" y2="139" stroke="var(--primary-2)" stroke-width="2.5"/>
+            <path d="M125 149 l5 5 9-10" fill="none" stroke="var(--mint)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="100" cy="66" r="26" fill="#E8B48C"/>
+            <path d="M74 62 a26 20 0 0 1 52 0 z" fill="var(--coral)"/>
+            <rect x="70" y="60" width="60" height="9" rx="4.5" fill="var(--coral)"/>
+            <circle cx="91" cy="68" r="2.6" fill="var(--primary-2)"/>
+            <circle cx="109" cy="68" r="2.6" fill="var(--primary-2)"/>
+            <path d="M92 79 q8 6 16 0" fill="none" stroke="var(--primary-2)" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </div>
         <h3>Inspección en terreno</h3>
         <p>Recorridos técnicos y levantamiento de matrices IPER.</p>
       </div>
       <div class="team-card">
-        <div class="avatar tint-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16l4-4h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4Z"/></svg></div>
+        <div class="illus" style="background:var(--coral-tint);padding:0;">
+          <img src="img/charla-capacitacion.jpg" alt="Prevencionista dictando una charla de capacitación a trabajadores en terreno" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <h3>Charlas y capacitación</h3>
         <p>Formación DS 40 en EPP y procedimientos seguros.</p>
       </div>
       <div class="team-card">
-        <div class="avatar tint-mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+        <div class="illus" style="background:var(--mint-tint);">
+          <svg viewBox="0 0 200 200" role="img" aria-label="Ilustración de prevencionista realizando una auditoría documental con tablet">
+            <ellipse cx="100" cy="182" rx="46" ry="8" fill="var(--primary)" opacity="0.08"/>
+            <rect x="82" y="140" width="15" height="42" rx="7" fill="var(--primary-2)"/>
+            <rect x="103" y="140" width="15" height="42" rx="7" fill="var(--primary-2)"/>
+            <path d="M70 92 h60 l-5 58 h-50 z" fill="var(--primary)"/>
+            <path d="M70 92 l30 20 30-20" fill="none" stroke="var(--mint)" stroke-width="5" stroke-linejoin="round"/>
+            <rect x="46" y="98" width="14" height="44" rx="7" fill="var(--primary)" transform="rotate(16 53 98)"/>
+            <rect x="130" y="96" width="14" height="44" rx="7" fill="var(--primary)" transform="rotate(-45 137 96)"/>
+            <rect x="112" y="120" width="36" height="26" rx="4" fill="#fff" stroke="var(--primary-2)" stroke-width="2"/>
+            <line x1="118" y1="128" x2="142" y2="128" stroke="var(--primary-2)" stroke-width="2.2"/>
+            <line x1="118" y1="135" x2="136" y2="135" stroke="var(--primary-2)" stroke-width="2.2"/>
+            <circle cx="150" cy="112" r="12" fill="none" stroke="var(--coral)" stroke-width="4"/>
+            <line x1="158" y1="120" x2="167" y2="129" stroke="var(--coral)" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="100" cy="66" r="26" fill="#E8B48C"/>
+            <path d="M74 62 a26 20 0 0 1 52 0 z" fill="var(--coral)"/>
+            <rect x="70" y="60" width="60" height="9" rx="4.5" fill="var(--coral)"/>
+            <circle cx="91" cy="68" r="2.6" fill="var(--primary-2)"/>
+            <circle cx="109" cy="68" r="2.6" fill="var(--primary-2)"/>
+            <path d="M92 79 q8 6 16 0" fill="none" stroke="var(--primary-2)" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </div>
         <h3>Auditoría documental</h3>
         <p>Revisión y acompañamiento frente a DT y Seremi de Salud.</p>
       </div>
     </div>
-    <p class="team-note">Iconografía representativa del equipo — puede reemplazarse por fotografías reales cuando estén disponibles.</p>
+    <p class="team-note">Ilustraciones propias del equipo — puedes reemplazarlas por fotografías reales cuando las tengas disponibles.</p>
   </div>
 </section>
 
