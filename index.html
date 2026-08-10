@@ -671,7 +671,7 @@
         <a href="https://wa.me/56996713474" target="_blank" rel="noopener" class="btn" style="margin-top:24px;background:var(--mint);border-color:var(--mint);color:var(--primary-2);">Escribir por WhatsApp</a>
       </div>
       <div>
-        <form id="contact-form">
+        <form id="contact-form" action="https://formspree.io/f/xwlelgjw" method="POST">
           <div class="field">
             <label for="nombre">Nombre y empresa</label>
             <input id="nombre" name="nombre" type="text" required placeholder="Ej: Juan Pérez, Agrícola Los Robles">
@@ -706,9 +706,9 @@
             <label for="mensaje">Cuéntanos tu necesidad</label>
             <textarea id="mensaje" name="mensaje" required placeholder="Ej: necesitamos constituir el comité paritario y capacitar a 12 trabajadores."></textarea>
           </div>
+          <input type="hidden" name="_subject" value="Nueva solicitud desde asesoraprevencion.cl">
           <button type="submit" class="btn">Enviar solicitud</button>
           <p class="form-status" id="form-status"></p>
-          <p class="form-note">Formulario de maqueta: conéctalo a tu correo, WhatsApp Business o CRM para recibir solicitudes reales.</p>
         </form>
       </div>
     </div>
@@ -723,10 +723,25 @@
 </footer>
 
 <script>
-  document.getElementById('contact-form').addEventListener('submit', function(e){
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+  contactForm.addEventListener('submit', function(e){
     e.preventDefault();
-    document.getElementById('form-status').textContent = 'Solicitud lista para enviar (conecta este formulario a tu correo o WhatsApp).';
-    this.reset();
+    formStatus.textContent = 'Enviando...';
+    fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(response){
+      if (response.ok) {
+        formStatus.textContent = '¡Solicitud enviada! Te contactaremos pronto.';
+        contactForm.reset();
+      } else {
+        formStatus.textContent = 'Hubo un problema al enviar. Intenta de nuevo o escríbenos por WhatsApp.';
+      }
+    }).catch(function(){
+      formStatus.textContent = 'Hubo un problema al enviar. Intenta de nuevo o escríbenos por WhatsApp.';
+    });
   });
 </script>
 
